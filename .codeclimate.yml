@@ -1,9 +1,19 @@
 engines:
   fixme:
     enabled: true
+    config:
+      strings:
+      - FIXME
+      - BUG
+      - CUSTOM
+      - TODO
+  markdownlint:
+    enabled: true
 
 ratings:
-  paths: []
-
+  paths:
+  - *.R
+  - *.r
+  - *.md
 exclude_paths:
-  - tests/
+- tests/*
