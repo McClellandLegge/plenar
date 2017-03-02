@@ -1,17 +1,18 @@
 Package: plenar
 Type: Package
 Title: Data Extraction to R from Plenar.io's API
-Version: 0.1.0
+Version: 0.2.0
 Author: McClelland Legge
 Maintainer: "McClelland Legge" <McClelland.Legge@gmail.com>
 Depends: R (>= 3.1.1)
 Description: Provides easy interaction with
     Plenar.io's open API.
-    Users can easily pull event and shape data into R.
+    Users can easily pull event, shape and sensor network data into R.
 License: MIT + file LICENSE
 Encoding: UTF-8
 LazyData: true
 Imports: jsonlite,
-    httr
-Suggests: testthat
+    httr,
+Suggests: testthat,
+    geojsonlint
 RoxygenNote: 6.0.1

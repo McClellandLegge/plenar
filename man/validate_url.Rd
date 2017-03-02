@@ -15,3 +15,6 @@ The original URL(s)
 \description{
 Basic quality checks on URL(s)
 }
+\seealso{
+\code{\link{get_response}}
+}

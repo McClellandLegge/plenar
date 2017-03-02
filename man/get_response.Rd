@@ -17,3 +17,6 @@ httr response object
 \description{
 Check a GET verb call for errors
 }
+\seealso{
+\code{\link{validate_url}}
+}
