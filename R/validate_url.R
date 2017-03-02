@@ -5,10 +5,7 @@
 #' @importFrom httr parse_url build_url
 #' @export
 validate_url <- function(urls) {
-  if (!requireNamespace("httr", quietly = TRUE)) {
-    stop("`httr` needed for this function to work. Please install it.",
-         call. = FALSE)
-  }
+  if (!requireNamespace("httr", quietly = TRUE)) stop("`httr` needed for this function to work. Please install it.", call. = FALSE)
 
   urls <- as.character(urls)
   sapply(urls, function(url){

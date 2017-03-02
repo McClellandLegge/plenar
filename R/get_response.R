@@ -10,10 +10,7 @@ get_response <- function(url, content_only = TRUE){
 
   url <- plenar::validate_url(url)
 
-  if (!requireNamespace("jsonlite", quietly = TRUE)) {
-    stop("`jsonlite` needed for this function to work. Please install it.",
-         call. = FALSE)
-  }
+  if (!requireNamespace("jsonlite", quietly = TRUE)) stop("`jsonlite` needed for this function to work. Please install it.", call. = FALSE)
 
   response <- httr::GET(url)
 
