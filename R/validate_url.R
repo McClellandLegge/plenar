@@ -3,6 +3,7 @@
 #' @param urls A character vector of URL(s)
 #' @return The original URL(s)
 #' @importFrom httr parse_url build_url
+#' @export
 validate_url <- function(urls) {
   if (!requireNamespace("httr", quietly = TRUE)) {
     stop("`httr` needed for this function to work. Please install it.",

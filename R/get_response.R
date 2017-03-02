@@ -5,6 +5,7 @@
 #' @return httr response object
 #' @importFrom httr http_status GET content stop_for_status
 #' @importFrom jsonlite fromJSON
+#' @export
 get_response <- function(url, content_only = TRUE){
 
   url <- plenar::validate_url(url)

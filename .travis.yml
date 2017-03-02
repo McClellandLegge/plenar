@@ -3,8 +3,9 @@ sudo: false
 warnings_are_errors: false
 cache: packages
 
-before_script:
-  - Rscript -e 'install.packages(c("covr", "testthat"), repos = "https://cloud.r-project.org")'
+r_github_packages:
+  - jimhester/covr
+  - hadley/testthat
 
 after_success:
   - Rscript -e 'covr::codecov()'
