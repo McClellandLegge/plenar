@@ -1,6 +1,12 @@
 # **NEWS**
 
 ***
+## **plenar 0.2.0**
+
+#### *New Features/Functions*
+
+* [available_data](R/available_data.R) - A function to query the meta-data on the API with enabled filtering on name, date and GeoJSON polygon regions.
+
 
 ## **plenar 0.1.0**
 
