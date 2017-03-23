@@ -7,15 +7,23 @@
 #' @param date_end (`type = "event"` only) filter data sets for those that end on or before this date specified in `YYYY-MM-DD` format
 #' @param ... Additional arguments passed to \code{\link{get_response}}
 #'
-#' @return A list object
+#' @return A data.table object
 #' @export
 #' @importFrom httr parse_url build_url
 #' @importFrom jsonlite toJSON
+#' @import data.table
 #' @examples
-#' event <- available_data(type = "event", content_only = TRUE)
-#' shapes <- available_data(type = "shape", content_only = TRUE)
-#' sensor <- available_data(type = "sensor", content_only = TRUE)
+#' # can use date filters
+#' event <- available_data(type = "event", date_begin = "2016-10-20")
+#'
+#' # can use name filters
+#' sets <- c("Land Use Permits", "LAPD Crime and Collision Raw Data for 2013")
+#' shapes <- available_data(type = "shape", names = sets)
+#'
+#' sensor <- available_data(type = "sensor")
 available_data <- function(type, names = NULL, location = NULL, date_begin = NULL, date_end = NULL, ...) {
+
+  if (!requireNamespace("jsonlite", quietly = TRUE)) stop("`jsonlite` needed for this function to work. Please install it.", call. = FALSE)
 
   parsed_url <- httr::parse_url(plenar::plenar_api)
 
@@ -41,7 +49,7 @@ available_data <- function(type, names = NULL, location = NULL, date_begin = NUL
       warning("`geojsonlint` not installed, skipping check of 'location' geojson polygon")
 
     parsed_url$query <- c(parsed_url$query, list(location_geom__within = location))
-  }
+  } #/ end null location check
 
   if (!is.null(date_begin)) {
 
@@ -52,7 +60,7 @@ available_data <- function(type, names = NULL, location = NULL, date_begin = NUL
       stop("Invalid `date_begin` format! Must be YYYY-MM-DD.")
 
     parsed_url$query <- c(parsed_url$query, list(obs_date__ge = date_begin))
-  }
+  } #/ end null date_begin check
 
   if (!is.null(date_end)) {
 
@@ -63,7 +71,7 @@ available_data <- function(type, names = NULL, location = NULL, date_begin = NUL
       stop("Invalid `date_end` format! Must be YYYY-MM-DD.")
 
     parsed_url$query <- c(parsed_url$query, list(obs_date__le = date_end))
-  }
+  } #/ end null date_end check
 
   if (!is.null(names)) {
 
@@ -71,9 +79,39 @@ available_data <- function(type, names = NULL, location = NULL, date_begin = NUL
       warning(paste0("'date_begin' not valid for type '", type, "', ignoring"))
 
     parsed_url$query <- c(parsed_url$query, list(dataset_name__in = jsonlite::toJSON(names)))
+  } # end/ null names check
+
+  # build the query and send call
+  query_url <- plenar::validate_url(httr::build_url(parsed_url))
+  response <- plenar::get_response(query_url, ...)
+
+  # format the nested list
+  format_available(response, type = type)
+}
+
+
+format_available <- function(x, type) {
+
+  # specify the name of the element by type
+  if (type %in% c("event", "shape")) {
+    objects <- get("objects", x)
+  } else if (type == "sensor") {
+    objects <- get("data", x)
+  } else {
+    stop("Invalid 'type' argument to format")
   }
 
-  query_url <- plenar::validate_url(httr::build_url(parsed_url))
+  dt_list <- lapply(objects, function(x) {
+    # list_cols <- which(sapply(x, class) == "list")
+    simple_cols <- which(sapply(x, class) != "list")
 
-  plenar::get_response(query_url, ...)
+    # flattened <- sapply(x[list_cols], paste, collapse = "|",
+                        # simplify = FALSE, USE.NAMES = TRUE)
+
+    # data.table::as.data.table(c(x[simple_cols], flattened))
+    data.table::as.data.table(x[simple_cols])
+  })
+
+  out <- data.table::rbindlist(dt_list, fill = TRUE)
+  return(out)
 }

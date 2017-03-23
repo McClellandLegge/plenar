@@ -21,13 +21,18 @@ available_data(type, names = NULL, location = NULL, date_begin = NULL,
 \item{...}{Additional arguments passed to \code{\link{get_response}}}
 }
 \value{
-A list object
+A data.table object
 }
 \description{
 Query API for available Event, Shape or Sensor Network Data
 }
 \examples{
-event <- available_data(type = "event", content_only = TRUE)
-shapes <- available_data(type = "shape", content_only = TRUE)
-sensor <- available_data(type = "sensor", content_only = TRUE)
+# can use date filters
+event <- available_data(type = "event", date_begin = "2016-10-20")
+
+# can use name filters
+sets <- c("Land Use Permits", "LAPD Crime and Collision Raw Data for 2013")
+shapes <- available_data(type = "shape", names = sets)
+
+sensor <- available_data(type = "sensor")
 }
