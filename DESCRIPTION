@@ -1,7 +1,7 @@
 Package: plenar
 Type: Package
 Title: Data Extraction to R from Plenar.io's API
-Version: 0.2.1
+Version: 0.2.2
 Author: McClelland Legge
 Maintainer: "McClelland Legge" <McClelland.Legge@gmail.com>
 Depends: R (>= 3.1.1)

@@ -27,11 +27,10 @@ A data.table object
 Query API for available Event, Shape or Sensor Network Data
 }
 \examples{
-# can use date filters
-event <- available_data(type = "event", date_begin = "2016-10-20")
-
-# can use name filters
+# can use filters
 sets <- c("Land Use Permits", "LAPD Crime and Collision Raw Data for 2013")
+event <- available_data(type = "event", date_begin = "2012-10-20", names = sets)
+
 shapes <- available_data(type = "shape", names = sets)
 
 sensor <- available_data(type = "sensor")
