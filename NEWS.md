@@ -1,7 +1,13 @@
 # **NEWS**
 
 ***
-## **plenar 0.2.0**
+## **plenar 0.3.0**
+
+#### *New Features/Functions*
+
+* [event_data](R/event_data.R) - A function to query the event data on the API with the purpose of bulk data extracts. All API filters except 'shape' are implemented at this time.
+
+## **plenar 0.2.0-2**
 
 #### *New Features/Functions*
 

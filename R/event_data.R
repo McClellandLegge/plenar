@@ -10,7 +10,9 @@
 #' @importFrom jsonlite validate fromJSON
 #' @export
 #' @examples
-#' x <- event_data(name = "crimes_2001_to_present", filter = '{"op": "eq", "col": "primary_type", "val": "HOMICIDE"}', date_begin = "2016-12-01", date_end = "2016-12-31")
+#' x <- event_data(name = "crimes_2001_to_present",
+#'   filter = '{"op": "eq", "col": "primary_type", "val": "HOMICIDE"}',
+#'   date_begin = "2016-12-01", date_end = "2016-12-31")
 event_data <- function(name = NULL,
                        location = NULL,
                        date_begin = NULL,
