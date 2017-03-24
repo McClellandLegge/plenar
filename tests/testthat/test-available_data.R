@@ -20,10 +20,6 @@ test_that("end date filter fails for wrong format", {
   expect_error(plenar::available_data(type = "event", date_end = "10-20-2016"))
 })
 
-test_that("names filter event data queried successfully", {
-  expect_is(plenar::available_data(type = "event", names = c("Land Use Permits", "LAPD Crime and Collision Raw Data for 2013")), "data.frame")
-})
-
 location <- '{"type":"Polygon","coordinates":[[[-87.58695602416992,41.79224063145134],[-87.58695602416992,41.7996633276003],[-87.5745964050293,41.7996633276003],[-87.5745964050293,41.79224063145134],[-87.58695602416992,41.79224063145134]]]}'
 
 test_that("location filter event data is queried successfully", {
@@ -42,10 +38,6 @@ test_that("begin date filter throws warning", {
 
 test_that("end date filter throws warning", {
   expect_warning(plenar::available_data(type = "shape", date_end = "2016-10-20"))
-})
-
-test_that("names filter throws warning", {
-  expect_warning(plenar::available_data(type = "shape", names = c("Land Use Permits", "LAPD Crime and Collision Raw Data for 2013")))
 })
 
 test_that("location filter event data throws warning but is queried successfully", {
@@ -70,10 +62,7 @@ test_that("end date filter throws warning", {
   expect_warning(plenar::available_data(type = "sensor", date_end = "2016-10-20"))
 })
 
-test_that("names filter throws warning", {
-  expect_warning(plenar::available_data(type = "sensor", names = c("Land Use Permits", "LAPD Crime and Collision Raw Data for 2013")))
-})
-
 test_that("location filter throws warning", {
   expect_warning(plenar::available_data(type = "sensor", location = location))
 })
+

@@ -4,21 +4,16 @@
 \alias{available_data}
 \title{Query API for available Event, Shape or Sensor Network Data}
 \usage{
-available_data(type, names = NULL, location = NULL, date_begin = NULL,
-  date_end = NULL, ...)
+available_data(type, location = NULL, date_begin = NULL, date_end = NULL)
 }
 \arguments{
 \item{type}{A character string, one of `event`, `shape` or `sensor`}
-
-\item{names}{(`type = "event"` only) filter data sets by "human" name}
 
 \item{location}{(`type = "event"` and `type = "shape"` only) filter data sets with a valid geojson polygon}
 
 \item{date_begin}{(`type = "event"` only) filter data sets for those that begin on or after this date specified in `YYYY-MM-DD` format}
 
 \item{date_end}{(`type = "event"` only) filter data sets for those that end on or before this date specified in `YYYY-MM-DD` format}
-
-\item{...}{Additional arguments passed to \code{\link{get_response}}}
 }
 \value{
 A data.table object
@@ -28,10 +23,16 @@ Query API for available Event, Shape or Sensor Network Data
 }
 \examples{
 # can use filters
-sets <- c("Land Use Permits", "LAPD Crime and Collision Raw Data for 2013")
-event <- available_data(type = "event", date_begin = "2012-10-20", names = sets)
+loc = '{"type":"Polygon",
+  "coordinates":[
+    [[-87.58695602416992,41.79224063145134],
+    [-87.58695602416992,41.7996633276003],
+    [-87.5745964050293,41.7996633276003],
+    [-87.5745964050293,41.79224063145134],
+    [-87.58695602416992,41.79224063145134]]]}'
+event <- available_data(type = "event", date_begin = "2015-10-20", location = loc)
 
-shapes <- available_data(type = "shape", names = sets)
+shapes <- available_data(type = "shape")
 
 sensor <- available_data(type = "sensor")
 }

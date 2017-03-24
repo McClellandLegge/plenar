@@ -1,7 +1,7 @@
 #' Check a GET verb call for errors
 #'
 #' @param url A query to the plenar.io API in the form of a character string
-#' @param content_only A
+#' @param content_only Only include the content, discard completion info
 #' @return httr response object
 #' @importFrom httr http_status GET content stop_for_status
 #' @seealso \code{\link{validate_url}}

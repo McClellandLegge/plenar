@@ -9,7 +9,7 @@ get_response(url, content_only = TRUE)
 \arguments{
 \item{url}{A query to the plenar.io API in the form of a character string}
 
-\item{content_only}{A}
+\item{content_only}{Only include the content, discard completion info}
 }
 \value{
 httr response object
